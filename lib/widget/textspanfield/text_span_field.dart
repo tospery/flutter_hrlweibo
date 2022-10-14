@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 
@@ -71,6 +70,12 @@ class _TextSpanFieldSelectionGestureDetectorBuilder
             cause: SelectionChangedCause.longPress,
           );
           break;
+        case TargetPlatform.linux:
+          break;
+        case TargetPlatform.macOS:
+          break;
+        case TargetPlatform.windows:
+          break;
       }
     }
   }
@@ -87,10 +92,19 @@ class _TextSpanFieldSelectionGestureDetectorBuilder
         case TargetPlatform.fuchsia:
           renderEditable.selectPosition(cause: SelectionChangedCause.tap);
           break;
+        case TargetPlatform.linux:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.macOS:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.windows:
+          // TODO: Handle this case.
+          break;
       }
     }
     _state._requestKeyboard();
-    if (_state.widget.onTap != null) _state!.widget.onTap!();
+    if (_state.widget.onTap != null) _state.widget.onTap!();
   }
 
   @override
@@ -107,6 +121,15 @@ class _TextSpanFieldSelectionGestureDetectorBuilder
         case TargetPlatform.fuchsia:
           renderEditable.selectWord(cause: SelectionChangedCause.longPress);
           Feedback.forLongPress(_state.context);
+          break;
+        case TargetPlatform.linux:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.macOS:
+          // TODO: Handle this case.
+          break;
+        case TargetPlatform.windows:
+          // TODO: Handle this case.
           break;
       }
     }
@@ -787,7 +810,7 @@ class _TextSpanFieldState extends State<TextSpanField>
 
   // End of API for TextSelectionGestureDetectorBuilderDelegate.
 
-  bool get _isEnabled => widget.enabled ?? widget.decoration?.enabled ?? true;
+  bool get _isEnabled => widget.enabled ?? widget.decoration.enabled;
 
   int get _currentLength => _effectiveController.value.text.runes.length;
 
@@ -795,13 +818,12 @@ class _TextSpanFieldState extends State<TextSpanField>
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
     final ThemeData themeData = Theme.of(context);
-    final InputDecoration effectiveDecoration =
-        (widget.decoration ?? const InputDecoration())
-            .applyDefaults(themeData.inputDecorationTheme)
-            .copyWith(
-              enabled: widget.enabled,
-              hintMaxLines: widget.decoration?.hintMaxLines ?? widget.maxLines,
-            );
+    final InputDecoration effectiveDecoration = (widget.decoration)
+        .applyDefaults(themeData.inputDecorationTheme)
+        .copyWith(
+          enabled: widget.enabled,
+          hintMaxLines: widget.decoration.hintMaxLines ?? widget.maxLines,
+        );
 
     // No need to build anything if counter or counterText were given directly.
     if (effectiveDecoration.counter != null ||
@@ -897,7 +919,7 @@ class _TextSpanFieldState extends State<TextSpanField>
   EditableTextState get _editableText => editableTextKey.currentState!;
 
   void _requestKeyboard() {
-    _editableText?.requestKeyboard();
+    _editableText.requestKeyboard();
   }
 
   bool _shouldShowSelectionHandles(SelectionChangedCause cause) {
@@ -930,12 +952,21 @@ class _TextSpanFieldState extends State<TextSpanField>
     switch (Theme.of(context).platform) {
       case TargetPlatform.iOS:
         if (cause == SelectionChangedCause.longPress) {
-          _editableText?.bringIntoView(selection.base);
+          _editableText.bringIntoView(selection.base);
         }
         return;
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
       // Do nothing.
+      case TargetPlatform.linux:
+        // TODO: Handle this case.
+        break;
+      case TargetPlatform.macOS:
+        // TODO: Handle this case.
+        break;
+      case TargetPlatform.windows:
+        // TODO: Handle this case.
+        break;
     }
   }
 
@@ -992,8 +1023,6 @@ class _TextSpanFieldState extends State<TextSpanField>
         textSelectionControls = cupertinoTextSelectionControls;
         paintCursorAboveText = true;
         cursorOpacityAnimates = true;
-        cursorColor ??= CupertinoTheme.of(context).primaryColor;
-        cursorRadius ??= const Radius.circular(2.0);
         cursorOffset = Offset(
             iOSHorizontalOffset / MediaQuery.of(context).devicePixelRatio, 0);
         break;
@@ -1004,6 +1033,15 @@ class _TextSpanFieldState extends State<TextSpanField>
         textSelectionControls = materialTextSelectionControls;
         paintCursorAboveText = false;
         cursorOpacityAnimates = false;
+        break;
+      case TargetPlatform.linux:
+        // TODO: Handle this case.
+        break;
+      case TargetPlatform.macOS:
+        // TODO: Handle this case.
+        break;
+      case TargetPlatform.windows:
+        // TODO: Handle this case.
         break;
     }
 

@@ -67,7 +67,7 @@ class _ChangeNickNamePageState extends State<ChangeNickNamePage> {
                 margin: const EdgeInsets.only(top: 60.0, left: 20, right: 20),
                 child: SizedBox(
                   width: double.infinity,
-                  child: new RaisedButton(
+                  child: new MaterialButton(
                     color: Color(0xffFF8200),
                     textColor: Colors.white,
                     disabledTextColor: Colors.white,
@@ -92,8 +92,8 @@ class _ChangeNickNamePageState extends State<ChangeNickNamePage> {
                         'userId': UserUtil.getUserInfo().id,
                         'nick': _mEtController.text
                       });
-                      DioManager.instance
-                          .post(ServiceUrl.updateNick, params, (data) {
+                      DioManager.instance.post(ServiceUrl.updateNick, params,
+                          (data) {
                         ToastUtil.show('修改昵称成功!');
                         UserUtil.saveUserNick(_mEtController.text);
                         Constant.eventBus.fire(ChangeInfoEvent());

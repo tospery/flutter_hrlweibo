@@ -72,9 +72,9 @@ class _FeedBackPageState extends State<FeedBackPage> {
       // 如果已添加了9张图片，则提示不允许添加更多
       num size = mFileList.length;
       if (size >= 9) {
-        Scaffold.of(ctx).showSnackBar(SnackBar(
-          content: Text("最多只能添加9张图片！"),
-        ));
+        // Scaffold.of(ctx).showSnackBar(SnackBar(
+        //   content: Text("最多只能添加9张图片！"),
+        // ));
         return;
       }
       showModalBottomSheet<void>(

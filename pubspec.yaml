@@ -1,17 +1,22 @@
 name: flutter_hrlweibo
-description: A new Flutter project.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: A new Flutter application.
 version: 1.0.0+1
+homepage: https://github.com/huangruiLearn
+platforms:
+  android:
+  ios:
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
-
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   #https://github.com/flutter/plugins/tree/main/packages/shared_preferences/shared_preferences
   shared_preferences: ^2.0.15
+  #https://github.com/rrousselGit/riverpod
+  provider: ^6.0.3
   cupertino_icons: ^1.0.5
   #https://github.com/luanpotter/audioplayers
   audioplayers: ^1.0.1
@@ -73,3 +78,4 @@ flutter:
    - family: HotSearch
      fonts:
       - asset: assets/fonts/Lobster-Regular.ttf
+

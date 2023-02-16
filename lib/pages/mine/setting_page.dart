@@ -42,8 +42,8 @@ class SettingHead extends StatelessWidget {
                       new Container(
                         margin: new EdgeInsets.symmetric(horizontal: 5.0),
                         child: new CircleAvatar(
-                          backgroundImage: new NetworkImage(
-                              UserUtil.getUserInfo().headurl ?? "null"),
+                          backgroundImage:
+                              new NetworkImage(UserUtil.getUserInfo().headurl??"null"),
                           radius: 20.0,
                         ),
                       ),
@@ -79,8 +79,7 @@ class SettingHead extends StatelessWidget {
 class SettingCommon extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const SettingCommon(
-      {required this.title, required this.content, required this.onPressed});
+  const SettingCommon({required this.title, required this.content ,required this.onPressed});
 
   final String title;
   final String content;
@@ -173,25 +172,24 @@ class _SettingPageState extends State<SettingPage> {
                           chooseImgCallBack: (XFile? mHeadFile) {
                         FormData formData = FormData.fromMap({
                           "userId": UserUtil.getUserInfo().id,
-                          "headFile":
-                              MultipartFile.fromFileSync(mHeadFile?.path ?? "")
+                          "headFile": MultipartFile.fromFileSync(mHeadFile?.path??"")
                         });
 
                         DioManager.instance
                             .post(ServiceUrl.updateHead, formData, (data) {
-                          print("返回的头像的url:${data}");
+                           print("返回的头像的url:${data}");
                           UserUtil.saveUserHeadUrl(data);
                           ToastUtil.show('提交成功!');
                           setState(() {});
                         }, (error) {
-                          ToastUtil.show(error);
-                        });
+                             ToastUtil.show(error);
+                        }  );
                       });
                     });
               }),
               SettingCommon(
                   title: "用户昵称",
-                  content: UserUtil.getUserInfo().nick ?? "null",
+                  content: UserUtil.getUserInfo().nick??"null",
                   onPressed: () {
                     Routes.navigateTo(context, '${Routes.changeNickNamePage}');
                   }),
@@ -244,7 +242,7 @@ class _SettingPageState extends State<SettingPage> {
                           return AlertDialog(
                             content: Text('退出登录?'),
                             actions: <Widget>[
-                              TextButton(
+                              FlatButton(
                                 child: Text('确定'),
                                 onPressed: () {
                                   UserUtil.loginout();
@@ -255,7 +253,7 @@ class _SettingPageState extends State<SettingPage> {
                                       transition: TransitionType.fadeIn);
                                 },
                               ),
-                              TextButton(
+                              FlatButton(
                                 child: Text('取消'),
                                 onPressed: () {
                                   Navigator.of(context).pop();

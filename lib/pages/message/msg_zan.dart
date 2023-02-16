@@ -29,7 +29,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
       "pageSize": Constant.PAGE_SIZE,
     });
     DioManager.instance.post(ServiceUrl.getMsgZanList, formData, (data) {
-      ComZanListModel mList = ComZanListModel.fromJson(data['data']);
+      ComZanListModel mList = ComZanListModel.fromJson(data);
       mZanList.clear();
       mZanList = mList.list;
       setState(() {});
@@ -43,8 +43,9 @@ class _MsgZanPageState extends State<MsgZanPage> {
       "pageNum": page,
       "pageSize": Constant.PAGE_SIZE,
     });
-    await DioManager.instance.post(ServiceUrl.getMsgZanList, formData, (data) {
-      ComZanListModel mList = ComZanListModel.fromJson(data['data']);
+    await DioManager.instance.post(ServiceUrl.getMsgZanList, formData,
+        (data) {
+      ComZanListModel mList = ComZanListModel.fromJson(data);
       mZanList.addAll(mList.list);
       setState(() {
         isloadingMore = false;
@@ -246,7 +247,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
                                         content: new Text("$url clicked."),
                                         actions: <Widget>[
                                           // usually buttons at the bottom of the dialog
-                                          new TextButton(
+                                          new FlatButton(
                                             child: new Text("Close"),
                                             onPressed: () {},
                                           ),
@@ -297,7 +298,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
                                         content: new Text("点击的id:" + url),
                                         actions: <Widget>[
                                           // usually buttons at the bottom of the dialog
-                                          new TextButton(
+                                          new FlatButton(
                                             child: new Text("Close"),
                                             onPressed: () {},
                                           ),
@@ -315,11 +316,10 @@ class _MsgZanPageState extends State<MsgZanPage> {
                               ),
                               renderText: ({String? str, String? pattern}) {
                                 Map<String, String> map = Map<String, String>();
-                                String mEmoji2 = "";
+                                 String mEmoji2 = "";
                                 try {
                                   String mEmoji = str?.replaceAll(
-                                          RegExp('(\\[/)|(\\])'), "") ??
-                                      "";
+                                      RegExp('(\\[/)|(\\])'), "")??"";
                                   int mEmojiNew = int.parse(mEmoji);
                                   mEmoji2 = String.fromCharCode(mEmojiNew);
                                 } on Exception catch (_) {
@@ -356,7 +356,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
                                         content: new Text("点击的id:" + url),
                                         actions: <Widget>[
                                           // usually buttons at the bottom of the dialog
-                                          new TextButton(
+                                          new FlatButton(
                                             child: new Text("Close"),
                                             onPressed: () {},
                                           ),

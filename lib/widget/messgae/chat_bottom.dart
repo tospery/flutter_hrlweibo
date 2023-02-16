@@ -28,7 +28,7 @@ class ChatBottomInputWidget extends StatefulWidget {
 
   const ChatBottomInputWidget({
     Key? key,
-    required this.shouldTriggerChange,
+     required this.shouldTriggerChange,
     this.onSendCallBack,
     this.onImageSelectCallBack,
     this.onAudioCallBack,
@@ -64,6 +64,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
   bool mEmojiLayoutShow = false;
 
   late StreamSubscription<bool> keyboardSubscription;
+
 
   StreamSubscription? streamSubscription;
 
@@ -113,7 +114,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
     super.initState();
     streamSubscription =
         widget.shouldTriggerChange.listen((_) => hideBottomLayout());
-    WidgetsBinding.instance.addObserver(this);
+     WidgetsBinding.instance.addObserver(this);
     //   focusNode.addListener(onFocus);
 //    widget.controller.addListener(_onInputChange);
     mEditController.addListener(() {
@@ -127,8 +128,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
     );
 
     var keyboardVisibilityController = KeyboardVisibilityController();
-    keyboardSubscription =
-        keyboardVisibilityController.onChange.listen((bool visible) {
+    keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
       print("mBottomLayoutShow:" +
           mBottomLayoutShow.toString() +
           "mEmojiLayoutShow:" +
@@ -156,13 +156,19 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
           }
         } else {}
       }
-    });
+     });
+
+
+
+
+
   }
 
   Future requestPermission() async {
+
     // 申请结果
 
-    /*  PermissionStatus permission = await PermissionHandler()
+  /*  PermissionStatus permission = await PermissionHandler()
         .checkPermissionStatus(PermissionGroup.storage);
 
     if (permission == PermissionStatus.granted) {
@@ -385,7 +391,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
     return Container(
       width: 60,
       height: 30,
-      child: new MaterialButton(
+      child: new RaisedButton(
         padding: EdgeInsets.all(0),
         color: Color(0xffFF8200),
         textColor: Colors.white,
@@ -454,7 +460,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
       return Visibility(
         visible: mEmojiLayoutShow,
         child: EmojiWidget(onEmojiClockBack: (value) {
-          if (0 == value) {
+           if (0 == value) {
             mEditController.clear();
           } else {
             mEditController.text =
